@@ -1,4 +1,4 @@
-package com.example.security.security.sec;
+package com.example.security.sec;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,4 +1,4 @@
-package com.example.security.security.student;
+package com.example.security.student;
 
 public class Student {
     private final Integer studentId;
