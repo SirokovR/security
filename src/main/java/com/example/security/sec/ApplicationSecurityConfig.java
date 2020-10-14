@@ -43,20 +43,20 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
       UserDetails kaisaMakkarainenUser  = User.builder()
                 .username("kaisaMakkarainen")
                 .password(passwordEncoder.encode("password")) // now it looks like BCryptPa
-                .roles("STUDENT")  //ROLE_STUDENT
+                .roles(ApplicationUserRole.STUDENT.name())  //ROLE_STUDENT
                 .build();
 
       UserDetails romanUser = User.builder()
               .username("roman")
               .password(passwordEncoder.encode("passwordA"))
-              .roles("STUDENT")
+              .roles(ApplicationUserRole.STUDENT.name())
               .build();
 
 
         UserDetails lindaUser = User.builder()
                 .username("linda")
                 .password(passwordEncoder.encode("password123"))
-                .roles("ADMIN")
+                .roles(ApplicationUserRole.ADMIN.name())
                 .build();
 
         return new InMemoryUserDetailsManager(
