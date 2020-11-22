@@ -1,8 +1,10 @@
 package com.example.security.sec;
 
+import com.example.security.student.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -31,6 +33,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*","/js/*").permitAll()
                 .antMatchers("/api/**").hasRole(ApplicationUserRole.STUDENT.name())
+                .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.name())
+                .antMatchers(HttpMethod.POST,"/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.name())
+                .antMatchers(HttpMethod.PUT,"/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.name())
+                .antMatchers(HttpMethod.GET,"/management/api/**").hasAnyRole(ApplicationUserRole.ADMIN.name(),ApplicationUserRole.STUDENT.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -44,27 +50,31 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
       UserDetails kaisaMakkarainenUser  = User.builder()
                 .username("kaisaMakkarainen")
                 .password(passwordEncoder.encode("password")) // now it looks like BCryptPa
-                .roles(ApplicationUserRole.STUDENT.name())  //ROLE_STUDENT
+                 .authorities(ApplicationUserRole.STUDENT.getGrantedAuthorities())
+                //.roles(ApplicationUserRole.STUDENT.name())  //ROLE_STUDENT
                 .build();
 
       UserDetails romanUser = User.builder()
               .username("roman")
               .password(passwordEncoder.encode("passwordA"))
-              .roles(ApplicationUserRole.STUDENT.name())
+             // .roles(ApplicationUserRole.STUDENT.name())
+              .authorities(ApplicationUserRole.STUDENT.getGrantedAuthorities())
               .build();
 
 
         UserDetails lindaUser = User.builder()
                 .username("linda")
                 .password(passwordEncoder.encode("password123"))
-                .roles(ApplicationUserRole.ADMIN.name())
+              //  .roles(ApplicationUserRole.ADMIN.name())
+                .authorities(ApplicationUserRole.ADMIN.getGrantedAuthorities())
                 .build();
 
 
         UserDetails tomUser = User.builder()
                 .username("tom")
                 .password(passwordEncoder.encode("password123"))
-                .roles(ApplicationUserRole.ADMINTRAINEE.name())
+               // .roles(ApplicationUserRole.ADMINTRAINEE.name())
+                .authorities(ApplicationUserRole.ADMINTRAINEE.getGrantedAuthorities())
                 .build();
 
 
