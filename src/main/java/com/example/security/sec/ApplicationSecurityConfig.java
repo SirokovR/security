@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.example.security.sec.ApplicationUserPermission.*;
 import static com.example.security.sec.ApplicationUserRole.*;
 
@@ -53,7 +55,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/courses",true)
                 .and()
-                .rememberMe();  //default 2 week session
+                .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
+                .key("mysupersecretkeyforthis");  //New custom period for cookie holding
     }
 
 
