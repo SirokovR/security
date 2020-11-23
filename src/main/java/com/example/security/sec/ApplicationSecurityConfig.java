@@ -61,7 +61,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET")) //we MUST to do that because we have csrf protection desable.
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET")) //we MUST to do that because we have csrf()disable(). Or need to remove this line of code
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID", "remember-me")
