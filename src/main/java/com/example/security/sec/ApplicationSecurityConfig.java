@@ -53,10 +53,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //.httpBasic();    // thats - Basic authentication
                 .formLogin()    //  thats - Form base authentication
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/courses",true)
+                    .loginPage("/login")
+                    .permitAll()
+                    .defaultSuccessUrl("/courses",true)
+                    .passwordParameter("password")  //name from login.html
+                    .usernameParameter("username")  // name from login.html
                 .and()
-                .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
+                .rememberMe()
+                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
+                    .rememberMeParameter("remember-me") //name from login.html
                 .key("mysupersecretkeyforthis") //New custom period for cookie holding
                 .and()
                 .logout()
