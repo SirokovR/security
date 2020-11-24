@@ -6,17 +6,18 @@ import org.springframework.security.web.authentication.www.NonceExpiredException
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class ApplicationUser  implements UserDetails {
 
-    private final List<? extends GrantedAuthority> grantedAuthorities;
+    private final Set<? extends GrantedAuthority> grantedAuthorities;
     private final String password;
     private final String userName;
     private final boolean isAccountNonExpired;
     private final boolean isCredentialsNonExpired;
     private final boolean isEnabled;
 
-    public ApplicationUser(List<? extends GrantedAuthority> grantedAuthorities,
+    public ApplicationUser(Set<? extends GrantedAuthority> grantedAuthorities,
                            String password,
                            String userName,
                            boolean isAccountNonExpired,
