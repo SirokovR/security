@@ -1,6 +1,7 @@
 package com.example.security.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,8 +14,8 @@ public class ApplicationUserService implements UserDetailsService {
     private final ApplicationUserDao applicationUserDao;
 
     @Autowired
-    public ApplicationUserService(ApplicationUserDao applicationUserDao) {
-        this.applicationUserDao = applicationUserDao;
+    public ApplicationUserService(@Qualifier("fake") ApplicationUserDao applicationUserDao) {
+        this.applicationUserDao = applicationUserDao; // will be several implementations, so @Qualifier  need
     }
 
     @Override
